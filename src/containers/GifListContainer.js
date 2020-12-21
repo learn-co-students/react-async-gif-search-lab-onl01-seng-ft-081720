@@ -3,19 +3,24 @@ import GifList from '../components/GifList'
 import GifSearch from '../components/GifSearch'
 
 export default class GifListContainer extends Component {
-  
-    state = {
+  constructor() {
+    super()
+    this.state = {
       gifs: []
     }
+  }
+    
   
 
-  fetchGifs = (yourQuery = "dolphins") => {
-    // fetch(`https://api.giphy.com/v1/gifs/search?q=${yourQuery}&api_key=${process.env.API_KEY}&rating=g&limit=3`)
-    fetch(`https://api.giphy.com/v1/gifs/search?q=${yourQuery}&api_key=IeoPObB9S1QgtnA2NeT0aDcHkA2NOh2T&rating=g&limit=3`)
+  fetchGifs = (yourQuery = "horses") => {
+    fetch(`https://api.giphy.com/v1/gifs/search?q=${yourQuery}&api_key=${process.env.REACT_APP_API_KEY}&rating=g&limit=3`)
       .then(resp => resp.json())
-      .then(({data}) => {
-        this.setState({ gifs: data.map( gif => ({ url: gif.images.original.url }) ) })
+      .then(data => {
+        debugger
+          let gifArray = data.data.map(gif => gif)
+        this.setState({ gifs: gifArray.map( gif => ({ url: gif.images.original.url }) ) })
       })
+      debugger
      
 
   }
